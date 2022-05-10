@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Логин покупателя {% endblock %}
+
+{% block content %}
+  <style>
+    .errorlist{
+      color: red;
+    }
+  </style>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+          <h3>Вход в систему </h3>
+          <hr>
+          <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary">Вход в систему</button>
+            {% if error %}
+              <li style="color:red;">{{error}}</li>
+            {% endif %}
+          </form>
+          <br>
+          <p> или если нет аккаунта?<a href="{% url 'goods:registration' %}{% if request.Get.next%}
+            ?next={{request.Get.next}}{% endif %}"> Зарегистрироваться здесь </a></p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

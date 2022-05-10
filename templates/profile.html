@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Мой профиль{% endblock %}
+
+  {% block content %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Подробная информация</h3><hr>
+          <p><span class="font-weight-bold">Имя: </span> {{customer.full_name}}</p>
+          <p><span class="font-weight-bold">Имя пользователя: </span> {{customer.user.username}}</p>
+          <p><span class="font-weight-bold">Email: </span> {{customer.user.email}}</p>
+          <p><span class="font-weight-bold">Адрес: </span> {{customer.address}}</p>
+          <p><span class="font-weight-bold">Присоединился: </span> {{customer.joined_on}}</p>
+        </div>
+        <div class="col-md-8">
+        <h3>Предыдущие заказы</h3>
+        <hr>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>СН</th>
+                <th>ID Заказа</th>
+                <th>Кол-во</th>
+                <th>Заказано</th>
+                <th>Статус</th>
+              </tr>
+            </thead>
+
+            <tbody>
+            {% for ord in orders %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td><a href="{% url 'goods:order_detail' ord.pk %}">#ORDER_{{ord.id}}</a></td>
+                <td>{{ord.total}}</td>
+                <td>{{ord.created_at|timesince}} назад</td>
+                <td>{{ord.order_status}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+  {% endblock %}
